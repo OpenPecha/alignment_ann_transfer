@@ -10,7 +10,7 @@ class TranslationAlignmentTransfer:
         display_layer, transfer_layer = self.get_display_transfer_layer(
             src_pecha, tgt_pecha
         )
-        mapping = self.map_layer_to_layer(display_layer, transfer_layer)
+        mapping = self.map_display_to_transfer_layer(display_layer, transfer_layer)
         return mapping
 
     def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
@@ -67,7 +67,7 @@ class TranslationAlignmentTransfer:
             }
         return anns
 
-    def map_layer_to_layer(
+    def map_display_to_transfer_layer(
         self, display_layer: AnnotationStore, transfer_layer: AnnotationStore
     ):
         """
