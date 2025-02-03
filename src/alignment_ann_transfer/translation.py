@@ -5,7 +5,7 @@ from stam import AnnotationStore
 
 
 class TranslationAlignmentTransfer:
-    def transfer(self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha):
+    def get_alignment_mapping(self, src_pecha: Pecha, tgt_pecha: Pecha):
         self.base_update(src_pecha, tgt_pecha)
         display_layer, transfer_layer = self.get_display_transfer_layer(
             src_pecha, tgt_pecha
