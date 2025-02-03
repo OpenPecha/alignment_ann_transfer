@@ -14,6 +14,10 @@ class TranslationAlignmentTransfer:
         return mapping
 
     def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
+        """
+        1. Take the layer from src pecha
+        2. Migrate the layer to tgt pecha using base update
+        """
         src_base_name = list(src_pecha.bases.keys())[0]
         tgt_base_name = list(tgt_pecha.bases.keys())[0]
         tgt_pecha.merge_pecha(src_pecha, src_base_name, tgt_base_name)
@@ -49,7 +53,7 @@ class TranslationAlignmentTransfer:
 
     def extract_anns(self, layer: AnnotationStore) -> Dict:
         """
-        Extract annotation from the given root layer(STAM)
+        Extract annotation from layer(STAM)
         """
         anns = {}
         for ann in layer.annotations():
@@ -66,6 +70,11 @@ class TranslationAlignmentTransfer:
     def map_layer_to_layer(
         self, display_layer: AnnotationStore, transfer_layer: AnnotationStore
     ):
+        """
+        1. Extract annotations from display and transfer layer
+        2. Map the annotations from display to transfer layer
+        transfer_layer -> display_layer (One to Many)
+        """
         mapping: Dict = {}
 
         display_anns = self.extract_anns(display_layer)
