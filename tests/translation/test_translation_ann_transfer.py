@@ -32,3 +32,9 @@ class TestTranslationAlignmentTransfer(TestCase):
             DATA_DIR / "aligned_translation_segments.json"
         )
         assert aligned_segments == expected_aligned_segments
+
+    def test_get_aligned_display_translation(self):
+        translation_transfer = TranslationAlignmentTransfer()
+        translation_transfer.get_aligned_display_translation(
+            self.src_pecha, self.tgt_pecha, self.translation_pecha
+        )

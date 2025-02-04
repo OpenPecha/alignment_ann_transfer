@@ -41,6 +41,26 @@ class TranslationAlignmentTransfer:
             segments.append(f"<1><{display_idx}>{translation_text}")
         return segments
 
+    def get_aligned_display_translation(
+        self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
+    ) -> Dict:
+        """
+        Get mapping from display_layer -> transfer_layer
+        """
+
+        # From transfer -> display mapping get display -> transfer mapping
+        mapping = self.get_alignment_mapping(src_pecha, tgt_pecha)
+        display_transfer_mapping = {}
+        for t_idx, display_mapping in mapping.items():
+            display_indicies = [d_map[0] for d_map in display_mapping]
+            for d_idx in display_indicies:
+                if d_idx not in display_transfer_mapping:
+                    display_transfer_mapping[d_idx] = [t_idx]
+                else:
+                    display_transfer_mapping[d_idx].append(t_idx)
+
+        return display_transfer_mapping
+
     def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
         """
         1. Take the layer from src pecha
