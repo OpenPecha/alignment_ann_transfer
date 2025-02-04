@@ -43,7 +43,7 @@ class TranslationAlignmentTransfer:
 
     def get_aligned_display_translation(
         self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
-    ) -> Dict:
+    ) -> List[Dict]:
         """
         Get map from display_layer -> transfer_layer
         """
@@ -59,7 +59,24 @@ class TranslationAlignmentTransfer:
                 else:
                     display_transfer_map[d_idx].append(t_idx)
 
-        return display_transfer_map
+        # Get ann texts from display and translation layer
+        display_layer, _ = self.get_display_transfer_layer(src_pecha, tgt_pecha)
+        display_anns = self.extract_anns(display_layer)
+
+        layer_path = next(translation_pecha.layer_path.rglob("*.json"))
+        translation_anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
+
+        aligned_translation = []
+        for d_idx, t_indicies in display_transfer_map.items():
+            display_text = display_anns[d_idx]["text"]
+            translation_texts = []
+            for t_idx in t_indicies:
+                translation_texts.append(translation_anns[t_idx]["text"])
+
+            aligned_translation.append(
+                {"display_text": display_text, "translation_text": translation_texts}
+            )
+        return aligned_translation
 
     def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
         """
