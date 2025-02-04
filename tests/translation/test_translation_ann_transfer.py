@@ -42,3 +42,8 @@ class TestTranslationAlignmentTransfer(TestCase):
             DATA_DIR / "aligned_display_translation.json"
         )
         assert aligned_translation == expected_aligned_display_translation
+
+
+ann_transfer = TestTranslationAlignmentTransfer()
+ann_transfer.setUp()
+ann_transfer.test_get_serialized_aligned_translation()

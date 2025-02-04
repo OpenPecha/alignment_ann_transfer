@@ -15,12 +15,6 @@ class TranslationAlignmentTransfer:
         map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
         return map
 
-    def get_ann_text_by_idx(self, anns: Dict, idx: int):
-        for root_idx, ann_metadata in anns.items():
-            if str(root_idx) == str(idx):
-                return ann_metadata["text"]
-        return None
-
     def get_serialized_aligned_translation(
         self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
     ):
@@ -36,7 +30,7 @@ class TranslationAlignmentTransfer:
 
         segments = []
         for idx, display_map in map.items():
-            translation_text = self.get_ann_text_by_idx(anns, idx)
+            translation_text = anns[idx]["text"]
             display_idx = display_map[0][0]
             segments.append(f"<1><{display_idx}>{translation_text}")
         return segments
