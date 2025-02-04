@@ -1,0 +1,43 @@
+{
+  "id": "I15C4AA72",
+  "title": {
+    "BO": "དགོངས་པ་རབ་གསལ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡-༦༤"
+  },
+  "author": {
+    "BO": "ཙོང་ཁ་པ་བློ་བཟང་གྲགས་པ།",
+    "EN": "Tsongkhapa Lobzang Drakpa"
+  },
+  "imported": "2025-02-03T06:50:17.386007",
+  "source": "http://purl.bdrc.io/resource/WA1NLM688",
+  "toolkit_version": "0.0.1",
+  "parser": "GoogleDocTranslationParser",
+  "initial_creation_type": "google_docx",
+  "language": "bo",
+  "source_metadata": {
+    "title_short": {
+      "BO": "དགོངས་པ་རབ་གསལ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡-༦༤"
+    },
+    "title_long_clean": {
+      "BO": "དགོངས་པ་རབ་གསལ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡-༦༤"
+    },
+    "is_commentary_of": {
+      "BO": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡-༦༤"
+    }
+  },
+  "bases": [
+    {
+      "A340": {
+        "source_metadata": {
+          "total_segments": 10
+        },
+        "base_file": "A340.txt"
+      }
+    }
+  ],
+  "copyright": {
+    "status": "Unknown",
+    "notice": "",
+    "info_url": null
+  },
+  "licence": "Unknown"
+}
