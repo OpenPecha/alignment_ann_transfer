@@ -23,18 +23,12 @@ class TestTranslationAlignmentTransfer(TestCase):
         expected_mapping = read_json(DATA_DIR / "mapping.json")
         assert {str(k): v for k, v in mapping.items()} == expected_mapping
 
-    def test_get_aligned_translation_segments(self):
+    def test_get_serialized_aligned_translation(self):
         translation_transfer = TranslationAlignmentTransfer()
-        aligned_segments = translation_transfer.get_aligned_translation_segments(
+        aligned_segments = translation_transfer.get_serialized_aligned_translation(
             self.src_pecha, self.tgt_pecha, self.translation_pecha
         )
         expected_aligned_segments = read_json(
             DATA_DIR / "aligned_translation_segments.json"
         )
         assert aligned_segments == expected_aligned_segments
-
-
-transfer = TestTranslationAlignmentTransfer()
-transfer.setUp()
-transfer.test_get_alignment_mapping()
-transfer.test_get_aligned_translation_segments()

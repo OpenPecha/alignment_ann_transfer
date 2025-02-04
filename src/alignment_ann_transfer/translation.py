@@ -21,7 +21,7 @@ class TranslationAlignmentTransfer:
                 return ann_metadata["text"]
         return None
 
-    def get_aligned_translation_segments(
+    def get_serialized_aligned_translation(
         self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
     ):
         """
