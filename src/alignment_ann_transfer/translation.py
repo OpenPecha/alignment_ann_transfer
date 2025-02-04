@@ -1,17 +1,45 @@
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 
 from openpecha.pecha import Pecha
 from stam import AnnotationStore
 
 
 class TranslationAlignmentTransfer:
-    def get_alignment_mapping(self, src_pecha: Pecha, tgt_pecha: Pecha):
+    def get_alignment_mapping(
+        self, src_pecha: Pecha, tgt_pecha: Pecha
+    ) -> Dict[int, List]:
         self.base_update(src_pecha, tgt_pecha)
         display_layer, transfer_layer = self.get_display_transfer_layer(
             src_pecha, tgt_pecha
         )
         mapping = self.map_display_to_transfer_layer(display_layer, transfer_layer)
         return mapping
+
+    def get_ann_text_by_idx(self, anns: Dict, idx: int):
+        for root_idx, ann_metadata in anns.items():
+            if str(root_idx) == str(idx):
+                return ann_metadata["text"]
+        return None
+
+    def get_aligned_translation_segments(
+        self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
+    ):
+        """
+        Input: mapping from transfer_layer -> display_layer (One to Many)
+        Structure in a way such as : <chapter number><display idx>translation text
+        Note: From many relation in display layer, take first idx (Sefaria mapping limitation)
+        """
+        mapping = self.get_alignment_mapping(src_pecha, tgt_pecha)
+        layer_path = next(translation_pecha.layer_path.rglob("*.json"))
+
+        anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
+
+        segments = []
+        for idx, display_mapping in mapping.items():
+            translation_text = self.get_ann_text_by_idx(anns, idx)
+            display_idx = display_mapping[0][0]
+            segments.append(f"<1><{display_idx}>{translation_text}")
+        return segments
 
     def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
         """
@@ -64,6 +92,7 @@ class TranslationAlignmentTransfer:
             anns[int(ann_metadata["root_idx_mapping"])] = {
                 "Span": {"start": start, "end": end},
                 "text": str(ann),
+                "root_idx_mapping": int(ann_metadata["root_idx_mapping"]),
             }
         return anns
 
