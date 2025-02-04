@@ -12,8 +12,8 @@ class TranslationAlignmentTransfer:
         display_layer, transfer_layer = self.get_display_transfer_layer(
             src_pecha, tgt_pecha
         )
-        mapping = self.map_display_to_transfer_layer(display_layer, transfer_layer)
-        return mapping
+        map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
+        return map
 
     def get_ann_text_by_idx(self, anns: Dict, idx: int):
         for root_idx, ann_metadata in anns.items():
@@ -25,17 +25,17 @@ class TranslationAlignmentTransfer:
         self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
     ):
         """
-        Input: mapping from transfer_layer -> display_layer (One to Many)
+        Input: map from transfer_layer -> display_layer (One to Many)
         Structure in a way such as : <chapter number><display idx>translation text
-        Note: From many relation in display layer, take first idx (Sefaria mapping limitation)
+        Note: From many relation in display layer, take first idx (Sefaria map limitation)
         """
-        mapping = self.get_alignment_mapping(src_pecha, tgt_pecha)
+        map = self.get_alignment_mapping(src_pecha, tgt_pecha)
         layer_path = next(translation_pecha.layer_path.rglob("*.json"))
 
         anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
 
         segments = []
-        for idx, display_map in mapping.items():
+        for idx, display_map in map.items():
             translation_text = self.get_ann_text_by_idx(anns, idx)
             display_idx = display_map[0][0]
             segments.append(f"<1><{display_idx}>{translation_text}")
@@ -45,13 +45,13 @@ class TranslationAlignmentTransfer:
         self, src_pecha: Pecha, tgt_pecha: Pecha, translation_pecha: Pecha
     ) -> Dict:
         """
-        Get mapping from display_layer -> transfer_layer
+        Get map from display_layer -> transfer_layer
         """
 
-        # From transfer -> display mapping get display -> transfer mapping
-        mapping = self.get_alignment_mapping(src_pecha, tgt_pecha)
+        # From transfer -> display map get display -> transfer map
+        map = self.get_alignment_mapping(src_pecha, tgt_pecha)
         display_transfer_map = {}
-        for t_idx, display_map in mapping.items():
+        for t_idx, display_map in map.items():
             display_indicies = [d_map[0] for d_map in display_map]
             for d_idx in display_indicies:
                 if d_idx not in display_transfer_map:
@@ -124,7 +124,7 @@ class TranslationAlignmentTransfer:
         2. Map the annotations from display to transfer layer
         transfer_layer -> display_layer (One to Many)
         """
-        mapping: Dict = {}
+        map: Dict = {}
 
         display_anns = self.extract_anns(display_layer)
         transfer_anns = self.extract_anns(transfer_layer)
@@ -134,7 +134,7 @@ class TranslationAlignmentTransfer:
                 t_span["Span"]["start"],
                 t_span["Span"]["end"],
             )
-            mapping[t_idx] = []
+            map[t_idx] = []
             for d_idx, d_span in display_anns.items():
                 d_start, d_end = (
                     d_span["Span"]["start"],
@@ -155,7 +155,7 @@ class TranslationAlignmentTransfer:
                     flag = False
 
                 if flag:
-                    mapping[t_idx].append([d_idx, [d_start, d_end]])
-        # Sort the mapping
-        mapping = dict(sorted(mapping.items()))
-        return mapping
+                    map[t_idx].append([d_idx, [d_start, d_end]])
+        # Sort the map
+        map = dict(sorted(map.items()))
+        return map
