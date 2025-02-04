@@ -35,9 +35,9 @@ class TranslationAlignmentTransfer:
         anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
 
         segments = []
-        for idx, display_mapping in mapping.items():
+        for idx, display_map in mapping.items():
             translation_text = self.get_ann_text_by_idx(anns, idx)
-            display_idx = display_mapping[0][0]
+            display_idx = display_map[0][0]
             segments.append(f"<1><{display_idx}>{translation_text}")
         return segments
 
@@ -50,16 +50,16 @@ class TranslationAlignmentTransfer:
 
         # From transfer -> display mapping get display -> transfer mapping
         mapping = self.get_alignment_mapping(src_pecha, tgt_pecha)
-        display_transfer_mapping = {}
-        for t_idx, display_mapping in mapping.items():
-            display_indicies = [d_map[0] for d_map in display_mapping]
+        display_transfer_map = {}
+        for t_idx, display_map in mapping.items():
+            display_indicies = [d_map[0] for d_map in display_map]
             for d_idx in display_indicies:
-                if d_idx not in display_transfer_mapping:
-                    display_transfer_mapping[d_idx] = [t_idx]
+                if d_idx not in display_transfer_map:
+                    display_transfer_map[d_idx] = [t_idx]
                 else:
-                    display_transfer_mapping[d_idx].append(t_idx)
+                    display_transfer_map[d_idx].append(t_idx)
 
-        return display_transfer_mapping
+        return display_transfer_map
 
     def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
         """
