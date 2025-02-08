@@ -33,17 +33,8 @@ class TestCommentaryAlignmentTransfer(TestCase):
         )
         assert aligned_segments == expected_aligned_segments
 
-    def test_get_aligned_display_commentary(self):
-        commentary_transfer = CommentaryAlignmentTransfer()
-        aligned_commentary = commentary_transfer.get_aligned_display_commentary(
-            self.src_pecha, self.tgt_pecha, self.commentary_pecha
-        )
-        expected_aligned_display_commentary = read_json(
-            DATA_DIR / "aligned_display_commentary.json"
-        )
-        assert aligned_commentary == expected_aligned_display_commentary
-
 
 ann_transfer = TestCommentaryAlignmentTransfer()
 ann_transfer.setUp()
 ann_transfer.test_get_alignment_mapping()
+ann_transfer.test_get_serialized_aligned_commentary()

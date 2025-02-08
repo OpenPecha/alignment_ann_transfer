@@ -30,6 +30,8 @@ class CommentaryAlignmentTransfer:
 
         segments = []
         for idx, display_map in map.items():
+            if display_map == []:
+                continue
             commentary_text = anns[idx]["text"]
             display_idx = display_map[0][0]
             segments.append(f"<1><{display_idx}>{commentary_text}")

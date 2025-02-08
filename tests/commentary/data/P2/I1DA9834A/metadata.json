@@ -1,41 +1,41 @@
 {
   "id": "I1DA9834A",
   "title": {
-    "en": "None",
-    "bo": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡ ནས་ ༦༤"
+    "bo": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡ ནས་ ༦༤",
+    "en": "None"
   },
   "author": {
-    "en": "Candrakirti",
-    "bo": "ཟླ་བ་གྲགས་པ།"
+    "bo": "ཟླ་བ་གྲགས་པ།",
+    "en": "Candrakirti"
   },
-  "imported": "2025-02-06T09:55:23.443710",
+  "imported": "2025-02-07T14:34:03.347052",
   "source": "http://purl.bdrc.io/resource/WA1NLM688",
   "toolkit_version": "0.0.1",
   "parser": "GoogleDocTranslationParser",
   "initial_creation_type": "google_docx",
   "language": "bo",
   "source_metadata": {
+    "version_of": "IB42962D2",
+    "long_title": {
+      "bo": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡ ནས་ ༦༤",
+      "en": "None"
+    },
+    "document_id": "1Il_LTDcQhj5o5-5ujIo8Uhqq2KE2thfKGwUkJAyuaEM",
     "presentation": {
       "en": ""
     },
     "usage_title": {
-      "en": "None",
-      "bo": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡ ནས་ ༦༤"
-    },
-    "long_title": {
-      "en": "None",
-      "bo": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡ ནས་ ༦༤"
-    },
-    "version_of": "IB42962D2",
-    "document_id": "1Il_LTDcQhj5o5-5ujIo8Uhqq2KE2thfKGwUkJAyuaEM"
+      "bo": "དབུ་མ་འཇུག་པ་ལས་སེམས་བསྐྱེད་དྲུག་པ། ཤོ་ལོ་ཀ ༡ ནས་ ༦༤",
+      "en": "None"
+    }
   },
   "bases": [
     {
-      "3155": {
+      "1A6B": {
         "source_metadata": {
-          "total_segments": 162
+          "total_segments": 81
         },
-        "base_file": "3155.txt"
+        "base_file": "1A6B.txt"
       }
     }
   ],

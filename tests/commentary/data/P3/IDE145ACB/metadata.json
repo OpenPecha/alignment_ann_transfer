@@ -1,39 +1,39 @@
 {
   "id": "IDE145ACB",
   "title": {
-    "en": "Commentary on Entering the Middle Way",
-    "bo": "དབུ་མ་ལ་འཇུག་པའི་འགྲེལ་བཤད།"
+    "bo": "དབུ་མ་ལ་འཇུག་པའི་འགྲེལ་བཤད།",
+    "en": "Commentary on Entering the Middle Way"
   },
   "author": {
-    "en": "None",
-    "bo": "པཎྜི་ཏ་ཛ་ཡ་ཨ་ནནྟ།"
+    "bo": "པཎྜི་ཏ་ཛ་ཡ་ཨ་ནནྟ།",
+    "en": "None"
   },
-  "imported": "2025-02-06T10:36:07.233418",
+  "imported": "2025-02-07T14:48:28.282813",
   "source": "https://library.bdrc.io/show/bdr:WA0RT3215?tabs=bdr:MW23703_3870",
   "toolkit_version": "0.0.1",
   "parser": "DocxNumberListCommentaryParser",
   "initial_creation_type": "google_docx",
   "language": "bo",
   "source_metadata": {
+    "document_id": "1aMvqjEYzHBB0dGd3g1Kul57R0ve_uYWJ89FX-9JpAgA",
+    "commentary_alignments": [
+      {
+        "source": "I1DA9834A/layers/1A6B/Tibetan_Segment-2448.json",
+        "target": "IDE145ACB/layers/CA47/Meaning_Segment-6923.json"
+      }
+    ],
+    "long_title": {
+      "bo": "དབུ་མ་ལ་འཇུག་པའི་འགྲེལ་བཤད།",
+      "en": "Commentary on Entering the Middle Way"
+    },
     "presentation": {
       "en": ""
     },
     "usage_title": {
-      "en": "Commentary on Entering the Middle Way",
-      "bo": "དབུ་མ་ལ་འཇུག་པའི་འགྲེལ་བཤད།"
+      "bo": "དབུ་མ་ལ་འཇུག་པའི་འགྲེལ་བཤད།",
+      "en": "Commentary on Entering the Middle Way"
     },
-    "long_title": {
-      "en": "Commentary on Entering the Middle Way",
-      "bo": "དབུ་མ་ལ་འཇུག་པའི་འགྲེལ་བཤད།"
-    },
-    "commentary_of": "I1DA9834A",
-    "document_id": "1aMvqjEYzHBB0dGd3g1Kul57R0ve_uYWJ89FX-9JpAgA",
-    "commentary_alignments": [
-      {
-        "source": "I1DA9834A/layers/3155/Tibetan_Segment-BCCF.json",
-        "target": "IDE145ACB/layers/07CA/Meaning_Segment-9E45.json"
-      }
-    ]
+    "commentary_of": "I1DA9834A"
   },
   "bases": [],
   "copyright": {
