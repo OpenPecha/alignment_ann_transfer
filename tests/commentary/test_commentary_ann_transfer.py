@@ -28,9 +28,7 @@ class TestCommentaryAlignmentTransfer(TestCase):
         aligned_segments = commentary_transfer.get_serialized_commentary(
             self.root_pecha, self.root_display_pecha, self.commentary_pecha
         )
-        expected_aligned_segments = read_json(
-            DATA_DIR / "aligned_commentary_segments.json"
-        )
+        expected_aligned_segments = read_json(DATA_DIR / "serialized_commentary.json")
         assert aligned_segments == expected_aligned_segments
 
     def test_get_aligned_display_commentary(self):
