@@ -15,12 +15,12 @@ class TestTranslationAlignmentTransfer(TestCase):
         self.root_display_pecha = Pecha.from_path(DATA_DIR / "P1/I15C4AA72")
         self.translation_pecha = Pecha.from_path(DATA_DIR / "P3/I4FA57826")
 
-    def test_get_alignment_mapping(self):
+    def test_get_root_pechas_mapping(self):
         translation_transfer = TranslationAlignmentTransfer()
-        mapping = translation_transfer.get_alignment_mapping(
+        mapping = translation_transfer.get_root_pechas_mapping(
             self.root_pecha, self.root_display_pecha
         )
-        expected_mapping = read_json(DATA_DIR / "mapping.json")
+        expected_mapping = read_json(DATA_DIR / "root_pechas_mapping.json")
         assert {str(k): v for k, v in mapping.items()} == expected_mapping
 
     def test_get_serialized_translation(self):

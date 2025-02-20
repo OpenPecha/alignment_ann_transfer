@@ -5,7 +5,7 @@ from stam import AnnotationStore
 
 
 class TranslationAlignmentTransfer:
-    def get_alignment_mapping(
+    def get_root_pechas_mapping(
         self, root_pecha: Pecha, root_display_pecha: Pecha
     ) -> Dict[int, List]:
         self.base_update(root_pecha, root_display_pecha)
@@ -23,7 +23,7 @@ class TranslationAlignmentTransfer:
         Structure in a way such as : <chapter number><display idx>translation text
         Note: From many relation in display layer, take first idx (Sefaria map limitation)
         """
-        map = self.get_alignment_mapping(root_pecha, root_display_pecha)
+        map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
         layer_path = next(translation_pecha.layer_path.rglob("*.json"))
 
         anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
@@ -43,7 +43,7 @@ class TranslationAlignmentTransfer:
         """
 
         # From transfer -> display map get display -> transfer map
-        map = self.get_alignment_mapping(root_pecha, root_display_pecha)
+        map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
         display_transfer_map = {}
         for t_idx, display_map in map.items():
             display_indicies = [d_map[0] for d_map in display_map]
