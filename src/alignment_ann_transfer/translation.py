@@ -15,7 +15,7 @@ class TranslationAlignmentTransfer:
         map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
         return map
 
-    def get_serialized_aligned_translation(
+    def get_serialized_translation(
         self, root_pecha: Pecha, root_display_pecha: Pecha, translation_pecha: Pecha
     ):
         """
