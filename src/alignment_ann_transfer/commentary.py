@@ -8,6 +8,9 @@ class CommentaryAlignmentTransfer:
     def get_root_pechas_mapping(
         self, root_pecha: Pecha, root_display_pecha: Pecha
     ) -> Dict[int, List]:
+        """
+        Get segmentation mapping from root_pecha -> root_pecha
+        """
         self.base_update(root_pecha, root_display_pecha)
         display_layer, transfer_layer = self.get_display_transfer_layer(
             root_pecha, root_display_pecha
