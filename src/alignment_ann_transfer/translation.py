@@ -38,7 +38,7 @@ class TranslationAlignmentTransfer:
             segments.append(f"<1><{display_idx}>{translation_text}")
         return segments
 
-    def get_aligned_display_translation(
+    def get_root_display_and_translation(
         self, root_pecha: Pecha, root_display_pecha: Pecha, translation_pecha: Pecha
     ) -> List[Dict]:
         """

@@ -40,7 +40,7 @@ class CommentaryAlignmentTransfer:
             segments.append(f"<1><{display_idx}>{commentary_text}")
         return segments
 
-    def get_aligned_display_commentary(
+    def get_root_display_and_commentary(
         self, root_pecha: Pecha, root_display_pecha: Pecha, commentary_pecha: Pecha
     ) -> List[Dict]:
         """
