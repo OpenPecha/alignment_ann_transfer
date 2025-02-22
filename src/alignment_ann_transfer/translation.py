@@ -4,7 +4,7 @@ from typing import Dict, List
 from openpecha.pecha import Pecha
 from stam import AnnotationStore
 
-from alignment_ann_transfer.utils import extract_anns
+from alignment_ann_transfer.utils import extract_anns, map_display_to_transfer_layer
 
 
 class TranslationAlignmentTransfer:
@@ -23,7 +23,7 @@ class TranslationAlignmentTransfer:
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer))
 
-        map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
+        map = map_display_to_transfer_layer(display_layer, transfer_layer)
 
         # Clean up the layer
         new_tgt_layer.unlink()
@@ -43,7 +43,7 @@ class TranslationAlignmentTransfer:
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer_path))
 
-        map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
+        map = map_display_to_transfer_layer(display_layer, transfer_layer)
 
         # Clean up the layer
         new_tgt_layer_path.unlink()
@@ -81,47 +81,3 @@ class TranslationAlignmentTransfer:
         src_layer_name = next(src_pecha.layer_path.rglob("*.json")).name
         new_layer_path = tgt_pecha.layer_path / tgt_base_name / src_layer_name
         return new_layer_path
-
-    def map_display_to_transfer_layer(
-        self, display_layer: AnnotationStore, transfer_layer: AnnotationStore
-    ):
-        """
-        1. Extract annotations from display and transfer layer
-        2. Map the annotations from display to transfer layer
-        transfer_layer -> display_layer (One to Many)
-        """
-        map: Dict = {}
-
-        display_anns = extract_anns(display_layer)
-        transfer_anns = extract_anns(transfer_layer)
-
-        for t_idx, t_span in transfer_anns.items():
-            t_start, t_end = (
-                t_span["Span"]["start"],
-                t_span["Span"]["end"],
-            )
-            map[t_idx] = []
-            for d_idx, d_span in display_anns.items():
-                d_start, d_end = (
-                    d_span["Span"]["start"],
-                    d_span["Span"]["end"],
-                )
-                flag = False
-
-                # In between
-                if t_start <= d_start <= t_end - 1 or t_start <= d_end - 1 <= t_end - 1:
-                    flag = True
-
-                # Contain
-                if d_start < t_start and d_end > t_end:
-                    flag = True
-
-                # Overlap
-                if d_start == t_end or d_end == t_start:
-                    flag = False
-
-                if flag:
-                    map[t_idx].append([d_idx, [d_start, d_end]])
-        # Sort the map
-        map = dict(sorted(map.items()))
-        return map
