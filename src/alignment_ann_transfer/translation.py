@@ -18,6 +18,19 @@ class TranslationAlignmentTransfer:
         map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
         return map
 
+    def get_translation_pechas_mapping(
+        self, translation_pecha: Pecha, translation_display_pecha: Pecha
+    ) -> Dict[int, List]:
+        """
+        Get Segmentation mapping from translation display pecha -> translation pecha
+        """
+        self.base_update(translation_display_pecha, translation_pecha)
+        display_layer, transfer_layer = self.get_display_transfer_layer(
+            translation_display_pecha, translation_pecha
+        )
+        map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
+        return map
+
     def get_serialized_translation(
         self, root_pecha: Pecha, root_display_pecha: Pecha, translation_pecha: Pecha
     ):
@@ -77,27 +90,27 @@ class TranslationAlignmentTransfer:
             )
         return aligned_translation
 
-    def base_update(self, root_pecha: Pecha, root_display_pecha: Pecha):
+    def base_update(self, src_pecha: Pecha, tgt_pecha: Pecha):
         """
         1. Take the layer from src pecha
         2. Migrate the layer to tgt pecha using base update
         """
-        src_base_name = list(root_pecha.bases.keys())[0]
-        tgt_base_name = list(root_display_pecha.bases.keys())[0]
-        root_display_pecha.merge_pecha(root_pecha, src_base_name, tgt_base_name)
+        src_base_name = list(src_pecha.bases.keys())[0]
+        tgt_base_name = list(tgt_pecha.bases.keys())[0]
+        tgt_pecha.merge_pecha(src_pecha, src_base_name, tgt_base_name)
 
-        src_layer_name = next(root_pecha.layer_path.rglob("*.json")).name
-        new_layer = str(root_display_pecha.layer_path / tgt_base_name / src_layer_name)
+        src_layer_name = next(src_pecha.layer_path.rglob("*.json")).name
+        new_layer = str(tgt_pecha.layer_path / tgt_base_name / src_layer_name)
         return AnnotationStore(file=new_layer)
 
     def get_display_transfer_layer(
-        self, root_pecha: Pecha, root_display_pecha: Pecha
+        self, src_pecha: Pecha, tgt_pecha: Pecha
     ) -> Tuple[AnnotationStore, AnnotationStore]:
-        src_layer_name = next(root_pecha.layer_path.rglob("*.json")).name
+        src_layer_name = next(src_pecha.layer_path.rglob("*.json")).name
         display_layer_path = next(
             (
                 layer_path
-                for layer_path in root_display_pecha.layer_path.rglob("*.json")
+                for layer_path in tgt_pecha.layer_path.rglob("*.json")
                 if layer_path.name != src_layer_name
             ),
             None,
@@ -105,7 +118,7 @@ class TranslationAlignmentTransfer:
         new_layer_path = next(
             (
                 layer_path
-                for layer_path in root_display_pecha.layer_path.rglob("*.json")
+                for layer_path in tgt_pecha.layer_path.rglob("*.json")
                 if layer_path.name == src_layer_name
             ),
             None,
