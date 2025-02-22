@@ -2,7 +2,6 @@ from openpecha.pecha import Pecha
 from stam import AnnotationStore
 
 from alignment_ann_transfer import AlignmentTransfer
-from alignment_ann_transfer.utils import extract_anns
 
 
 class CommentaryAlignmentTransfer(AlignmentTransfer):
@@ -17,7 +16,7 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
         map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
         layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
 
-        anns = extract_anns(AnnotationStore(file=str(layer_path)))
+        anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
 
         segments = []
         for idx, display_map in map.items():

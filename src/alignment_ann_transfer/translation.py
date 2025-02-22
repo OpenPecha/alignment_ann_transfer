@@ -4,7 +4,6 @@ from openpecha.pecha import Pecha
 from stam import AnnotationStore
 
 from alignment_ann_transfer import AlignmentTransfer
-from alignment_ann_transfer.utils import extract_anns, map_layer_to_layer
 
 
 class TranslationAlignmentTransfer(AlignmentTransfer):
@@ -22,7 +21,7 @@ class TranslationAlignmentTransfer(AlignmentTransfer):
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer_path))
 
-        map = map_layer_to_layer(transfer_layer, display_layer)
+        map = self.map_layer_to_layer(transfer_layer, display_layer)
 
         # Clean up the layer
         new_tgt_layer_path.unlink()
@@ -39,7 +38,7 @@ class TranslationAlignmentTransfer(AlignmentTransfer):
         map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
         layer_path = next(translation_pecha.layer_path.rglob("*.json"))
 
-        anns = extract_anns(AnnotationStore(file=str(layer_path)))
+        anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
 
         segments = []
         for idx, display_map in map.items():
