@@ -25,35 +25,35 @@ def map_layer_to_layer(src_layer: AnnotationStore, tgt_layer: AnnotationStore):
     """
     1. Extract annotations from source and target layers
     2. Map the annotations from source to target layer
-    tgt_layer -> src_layer (One to Many)
+    src_layer -> tgt_layer (One to Many)
     """
     mapping: Dict = {}
 
     src_anns = extract_anns(src_layer)
     tgt_anns = extract_anns(tgt_layer)
 
-    for tgt_idx, tgt_span in tgt_anns.items():
-        tgt_start, tgt_end = tgt_span["Span"]["start"], tgt_span["Span"]["end"]
-        mapping[tgt_idx] = []
+    for src_idx, src_span in src_anns.items():
+        src_start, src_end = src_span["Span"]["start"], src_span["Span"]["end"]
+        mapping[src_idx] = []
 
-        for src_idx, src_span in src_anns.items():
-            src_start, src_end = src_span["Span"]["start"], src_span["Span"]["end"]
+        for tgt_idx, tgt_span in tgt_anns.items():
+            tgt_start, tgt_end = tgt_span["Span"]["start"], tgt_span["Span"]["end"]
 
             # Check for mapping conditions
             if (
-                tgt_start
-                <= src_start
-                < tgt_end  # Source annotation starts within target
-                or tgt_start
-                < src_end
-                <= tgt_end  # Source annotation ends within target
+                src_start
+                <= tgt_start
+                < src_end  # Target annotation starts within source
+                or src_start
+                < tgt_end
+                <= src_end  # Target annotation ends within source
                 or (
-                    src_start < tgt_start and src_end > tgt_end
-                )  # Source fully contains target
+                    tgt_start < src_start and tgt_end > src_end
+                )  # Target fully contains source
             ) and not (
-                src_start == tgt_end or src_end == tgt_start
+                tgt_start == src_end or tgt_end == src_start
             ):  # No exact edge overlap
-                mapping[tgt_idx].append([src_idx, [src_start, src_end]])
+                mapping[src_idx].append([tgt_idx, [tgt_start, tgt_end]])
 
-    # Sort the mapping by target indices
+    # Sort the mapping by source indices
     return dict(sorted(mapping.items()))

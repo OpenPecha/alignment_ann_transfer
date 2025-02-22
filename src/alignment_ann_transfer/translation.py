@@ -23,7 +23,7 @@ class TranslationAlignmentTransfer:
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer))
 
-        map = map_layer_to_layer(display_layer, transfer_layer)
+        map = map_layer_to_layer(transfer_layer, display_layer)
 
         # Clean up the layer
         new_tgt_layer.unlink()
@@ -43,7 +43,7 @@ class TranslationAlignmentTransfer:
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer_path))
 
-        map = map_layer_to_layer(display_layer, transfer_layer)
+        map = map_layer_to_layer(transfer_layer, display_layer)
 
         # Clean up the layer
         new_tgt_layer_path.unlink()
