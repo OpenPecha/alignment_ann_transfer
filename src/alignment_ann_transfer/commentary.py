@@ -3,6 +3,8 @@ from typing import Dict, List, Tuple
 from openpecha.pecha import Pecha
 from stam import AnnotationStore
 
+from alignment_ann_transfer.utils import extract_anns
+
 
 class CommentaryAlignmentTransfer:
     def get_root_pechas_mapping(
@@ -29,7 +31,7 @@ class CommentaryAlignmentTransfer:
         map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
         layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
 
-        anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
+        anns = extract_anns(AnnotationStore(file=str(layer_path)))
 
         segments = []
         for idx, display_map in map.items():
@@ -62,10 +64,10 @@ class CommentaryAlignmentTransfer:
         display_layer, _ = self.get_display_transfer_layer(
             root_pecha, root_display_pecha
         )
-        display_anns = self.extract_anns(display_layer)
+        display_anns = extract_anns(display_layer)
 
         layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
-        commentary_anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
+        commentary_anns = extract_anns(AnnotationStore(file=str(layer_path)))
 
         aligned_commentary = []
         for d_idx, t_indicies in display_transfer_map.items():
@@ -117,23 +119,6 @@ class CommentaryAlignmentTransfer:
         new_layer = AnnotationStore(file=str(new_layer_path))
         return (display_layer, new_layer)
 
-    def extract_anns(self, layer: AnnotationStore) -> Dict:
-        """
-        Extract annotation from layer(STAM)
-        """
-        anns = {}
-        for ann in layer.annotations():
-            start, end = ann.offset().begin().value(), ann.offset().end().value()
-            ann_metadata = {}
-            for data in ann:
-                ann_metadata[data.key().id()] = str(data.value())
-            anns[int(ann_metadata["root_idx_mapping"])] = {
-                "Span": {"start": start, "end": end},
-                "text": str(ann),
-                "root_idx_mapping": int(ann_metadata["root_idx_mapping"]),
-            }
-        return anns
-
     def map_display_to_transfer_layer(
         self, display_layer: AnnotationStore, transfer_layer: AnnotationStore
     ):
@@ -144,8 +129,8 @@ class CommentaryAlignmentTransfer:
         """
         map: Dict = {}
 
-        display_anns = self.extract_anns(display_layer)
-        transfer_anns = self.extract_anns(transfer_layer)
+        display_anns = extract_anns(display_layer)
+        transfer_anns = extract_anns(transfer_layer)
 
         for t_idx, t_span in transfer_anns.items():
             t_start, t_end = (
