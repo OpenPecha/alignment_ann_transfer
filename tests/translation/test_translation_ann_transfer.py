@@ -43,4 +43,6 @@ class TestTranslationAlignmentTransfer(TestCase):
 
 work = TestTranslationAlignmentTransfer()
 work.setUp()
-work.test_get_translation_pechas_mapping()
+work.test_get_root_pechas_mapping()
+# work.test_get_translation_pechas_mapping()
+work.test_get_serialized_translation()

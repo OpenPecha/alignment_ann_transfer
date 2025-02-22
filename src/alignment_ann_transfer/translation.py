@@ -42,6 +42,9 @@ class TranslationAlignmentTransfer:
         transfer_layer = AnnotationStore(file=str(new_tgt_layer_path))
 
         map = self.map_display_to_transfer_layer(display_layer, transfer_layer)
+
+        # Clean up the layer
+        new_tgt_layer_path.unlink()
         return map
 
     def get_serialized_translation(
