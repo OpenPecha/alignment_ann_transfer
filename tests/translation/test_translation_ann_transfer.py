@@ -34,15 +34,21 @@ class TestTranslationAlignmentTransfer(TestCase):
 
     def test_get_serialized_translation(self):
         translation_transfer = TranslationAlignmentTransfer()
-        aligned_segments = translation_transfer.get_serialized_translation(
+        serialized_json = translation_transfer.get_serialized_translation(
             self.root_pecha, self.root_display_pecha, self.translation_pecha
         )
-        expected_aligned_segments = read_json(DATA_DIR / "serialized_translation.json")
-        assert aligned_segments == expected_aligned_segments
+        expected_serialized_json = read_json(DATA_DIR / "serialized_translation.json")
+        assert serialized_json == expected_serialized_json
 
-
-work = TestTranslationAlignmentTransfer()
-work.setUp()
-work.test_get_root_pechas_mapping()
-# work.test_get_translation_pechas_mapping()
-work.test_get_serialized_translation()
+    def test_get_serialized_translation_display(self):
+        translation_transfer = TranslationAlignmentTransfer()
+        serialized_json = translation_transfer.get_serialized_translation_display(
+            self.root_pecha,
+            self.root_display_pecha,
+            self.translation_pecha,
+            self.translation_display_pecha,
+        )
+        expected_serialized_json = read_json(
+            DATA_DIR / "serialized_translation_display.json"
+        )
+        assert serialized_json == expected_serialized_json
