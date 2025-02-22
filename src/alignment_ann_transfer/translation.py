@@ -4,7 +4,7 @@ from typing import Dict, List
 from openpecha.pecha import Pecha
 from stam import AnnotationStore
 
-from alignment_ann_transfer.utils import extract_anns, map_display_to_transfer_layer
+from alignment_ann_transfer.utils import extract_anns, map_layer_to_layer
 
 
 class TranslationAlignmentTransfer:
@@ -23,7 +23,7 @@ class TranslationAlignmentTransfer:
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer))
 
-        map = map_display_to_transfer_layer(display_layer, transfer_layer)
+        map = map_layer_to_layer(display_layer, transfer_layer)
 
         # Clean up the layer
         new_tgt_layer.unlink()
@@ -43,7 +43,7 @@ class TranslationAlignmentTransfer:
         display_layer = AnnotationStore(file=str(display_layer_path))
         transfer_layer = AnnotationStore(file=str(new_tgt_layer_path))
 
-        map = map_display_to_transfer_layer(display_layer, transfer_layer)
+        map = map_layer_to_layer(display_layer, transfer_layer)
 
         # Clean up the layer
         new_tgt_layer_path.unlink()

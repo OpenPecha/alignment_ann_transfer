@@ -21,46 +21,39 @@ def extract_anns(layer: AnnotationStore) -> Dict:
     return anns
 
 
-def map_display_to_transfer_layer(
-    display_layer: AnnotationStore, transfer_layer: AnnotationStore
-):
+def map_layer_to_layer(src_layer: AnnotationStore, tgt_layer: AnnotationStore):
     """
-    1. Extract annotations from display and transfer layer
-    2. Map the annotations from display to transfer layer
-    transfer_layer -> display_layer (One to Many)
+    1. Extract annotations from source and target layers
+    2. Map the annotations from source to target layer
+    tgt_layer -> src_layer (One to Many)
     """
-    map: Dict = {}
+    mapping: Dict = {}
 
-    display_anns = extract_anns(display_layer)
-    transfer_anns = extract_anns(transfer_layer)
+    src_anns = extract_anns(src_layer)
+    tgt_anns = extract_anns(tgt_layer)
 
-    for t_idx, t_span in transfer_anns.items():
-        t_start, t_end = (
-            t_span["Span"]["start"],
-            t_span["Span"]["end"],
-        )
-        map[t_idx] = []
-        for d_idx, d_span in display_anns.items():
-            d_start, d_end = (
-                d_span["Span"]["start"],
-                d_span["Span"]["end"],
-            )
-            flag = False
+    for tgt_idx, tgt_span in tgt_anns.items():
+        tgt_start, tgt_end = tgt_span["Span"]["start"], tgt_span["Span"]["end"]
+        mapping[tgt_idx] = []
 
-            # In between
-            if t_start <= d_start <= t_end - 1 or t_start <= d_end - 1 <= t_end - 1:
-                flag = True
+        for src_idx, src_span in src_anns.items():
+            src_start, src_end = src_span["Span"]["start"], src_span["Span"]["end"]
 
-            # Contain
-            if d_start < t_start and d_end > t_end:
-                flag = True
+            # Check for mapping conditions
+            if (
+                tgt_start
+                <= src_start
+                < tgt_end  # Source annotation starts within target
+                or tgt_start
+                < src_end
+                <= tgt_end  # Source annotation ends within target
+                or (
+                    src_start < tgt_start and src_end > tgt_end
+                )  # Source fully contains target
+            ) and not (
+                src_start == tgt_end or src_end == tgt_start
+            ):  # No exact edge overlap
+                mapping[tgt_idx].append([src_idx, [src_start, src_end]])
 
-            # Overlap
-            if d_start == t_end or d_end == t_start:
-                flag = False
-
-            if flag:
-                map[t_idx].append([d_idx, [d_start, d_end]])
-    # Sort the map
-    map = dict(sorted(map.items()))
-    return map
+    # Sort the mapping by target indices
+    return dict(sorted(mapping.items()))
