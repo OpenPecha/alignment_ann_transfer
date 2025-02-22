@@ -11,34 +11,22 @@ DATA_DIR = Path(__file__).parent / "data"
 
 class TestCommentaryAlignmentTransfer(TestCase):
     def setUp(self):
-        self.src_pecha = Pecha.from_path(DATA_DIR / "P2/I1DA9834A")
-        self.tgt_pecha = Pecha.from_path(DATA_DIR / "P1/IB42962D2")
+        self.root_pecha = Pecha.from_path(DATA_DIR / "P2/I1DA9834A")
+        self.root_display_pecha = Pecha.from_path(DATA_DIR / "P1/IB42962D2")
         self.commentary_pecha = Pecha.from_path(DATA_DIR / "P3/IDE145ACB")
 
-    def test_get_alignment_mapping(self):
+    def test_get_root_pechas_mapping(self):
         commentary_transfer = CommentaryAlignmentTransfer()
-        mapping = commentary_transfer.get_alignment_mapping(
-            self.src_pecha, self.tgt_pecha
+        mapping = commentary_transfer.get_root_pechas_mapping(
+            self.root_pecha, self.root_display_pecha
         )
-        expected_mapping = read_json(DATA_DIR / "mapping.json")
+        expected_mapping = read_json(DATA_DIR / "root_pechas_mapping.json")
         assert {str(k): v for k, v in mapping.items()} == expected_mapping
 
-    def test_get_serialized_aligned_commentary(self):
+    def test_get_serialized_commentary(self):
         commentary_transfer = CommentaryAlignmentTransfer()
-        aligned_segments = commentary_transfer.get_serialized_aligned_commentary(
-            self.src_pecha, self.tgt_pecha, self.commentary_pecha
+        aligned_segments = commentary_transfer.get_serialized_commentary(
+            self.root_pecha, self.root_display_pecha, self.commentary_pecha
         )
-        expected_aligned_segments = read_json(
-            DATA_DIR / "aligned_commentary_segments.json"
-        )
+        expected_aligned_segments = read_json(DATA_DIR / "serialized_commentary.json")
         assert aligned_segments == expected_aligned_segments
-
-    def test_get_aligned_display_commentary(self):
-        commentary_transfer = CommentaryAlignmentTransfer()
-        aligned_commentary = commentary_transfer.get_aligned_display_commentary(
-            self.src_pecha, self.tgt_pecha, self.commentary_pecha
-        )
-        expected_aligned_display_commentary = read_json(
-            DATA_DIR / "aligned_display_commentary.json"
-        )
-        assert aligned_commentary == expected_aligned_display_commentary

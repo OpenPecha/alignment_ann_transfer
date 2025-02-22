@@ -11,7 +11,7 @@
   "imported": "2025-02-07T14:48:28.282813",
   "source": "https://library.bdrc.io/show/bdr:WA0RT3215?tabs=bdr:MW23703_3870",
   "toolkit_version": "0.0.1",
-  "parser": "DocxNumberListCommentaryParser",
+  "parser": "DocxSimpleCommentaryParser",
   "initial_creation_type": "google_docx",
   "language": "bo",
   "source_metadata": {

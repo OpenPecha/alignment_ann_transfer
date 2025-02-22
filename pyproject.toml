@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "openpecha @ git+https://github.com/OpenPecha/toolkit-v2.git"
+  "openpecha @ git+https://github.com/OpenPecha/toolkit-v2.git@951e2ece53254a88efab7f2c6686e974c0d1d0fd"
 ]
 
 [project.optional-dependencies]
