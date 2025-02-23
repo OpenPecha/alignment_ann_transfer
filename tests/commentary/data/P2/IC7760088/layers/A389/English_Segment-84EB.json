@@ -1,0 +1,440 @@
+{
+  "@type": "AnnotationStore",
+  "@id": "IC7760088",
+  "resources": [
+    {
+      "@type": "TextResource",
+      "@id": "A389",
+      "@include": "../../base/A389.txt"
+    }
+  ],
+  "annotationsets": [
+    {
+      "@type": "AnnotationDataSet",
+      "@id": "Translation",
+      "keys": [
+        {
+          "@type": "DataKey",
+          "@id": "root_idx_mapping"
+        },
+        {
+          "@type": "DataKey",
+          "@id": "Translation_Segment"
+        }
+      ],
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "5026B644",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "1"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "key": "Translation_Segment",
+          "value": {
+            "@type": "String",
+            "value": "English_Segment"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "DFE23564",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "2"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "CBAB7BD6",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "3"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "B4CC39D1",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "4"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "402E6B63",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "5"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F8D149C5",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "6"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F7F7D94E",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "7"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "59334A00",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "8"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "0E06DE97",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "9"
+          }
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "D39B935B",
+          "key": "root_idx_mapping",
+          "value": {
+            "@type": "String",
+            "value": "10"
+          }
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "@type": "Annotation",
+      "@id": "!A0",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 0
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 157
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "5026B644",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A1",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 157
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 310
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "DFE23564",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A2",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 310
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 457
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "CBAB7BD6",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A3",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 457
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 709
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "B4CC39D1",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A4",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 709
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 794
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "402E6B63",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A5",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 794
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 1030
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "F8D149C5",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A6",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 1030
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 1161
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "F7F7D94E",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A7",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 1161
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 1250
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "59334A00",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A8",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 1250
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 1349
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "0E06DE97",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    },
+    {
+      "@type": "Annotation",
+      "@id": "!A9",
+      "target": {
+        "@type": "TextSelector",
+        "resource": "A389",
+        "offset": {
+          "@type": "Offset",
+          "begin": {
+            "@type": "BeginAlignedCursor",
+            "value": 1349
+          },
+          "end": {
+            "@type": "BeginAlignedCursor",
+            "value": 1459
+          }
+        }
+      },
+      "data": [
+        {
+          "@type": "AnnotationData",
+          "@id": "D39B935B",
+          "set": "Translation"
+        },
+        {
+          "@type": "AnnotationData",
+          "@id": "F548A9FF",
+          "set": "Translation"
+        }
+      ]
+    }
+  ]
+}
