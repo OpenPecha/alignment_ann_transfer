@@ -50,35 +50,35 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             segments.append(f"<1><{display_idx}>{commentary_text}")
         return segments
 
-    # def get_serialized_commentary_display(
-    #     self,
-    #     root_pecha: Pecha,
-    #     root_display_pecha: Pecha,
-    #     commentary_pecha: Pecha,
-    #     commentary_display_pecha: Pecha,
-    # ):
-    #     """
-    #     Input: map from transfer_layer -> display_layer (One to Many)
-    #     Structure in a way such as : <chapter number><display idx>translation text
-    #     Note: From many relation in display layer, take first idx (Sefaria map limitation)
-    #     """
-    #     root_map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
-    #     translation_map = self.get_commentary_pechas_mapping(
-    #         self.commentary_pecha, self.commentary_display_pecha
-    #     )
+    def get_serialized_commentary_display(
+        self,
+        root_pecha: Pecha,
+        root_display_pecha: Pecha,
+        commentary_pecha: Pecha,
+        commentary_display_pecha: Pecha,
+    ):
+        """
+        Input: map from transfer_layer -> display_layer (One to Many)
+        Structure in a way such as : <chapter number><display idx>translation text
+        Note: From many relation in display layer, take first idx (Sefaria map limitation)
+        """
+        root_map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
+        commentary_map = self.get_commentary_pechas_mapping(
+            commentary_pecha, commentary_display_pecha
+        )
 
-    #     layer_path = next(commentary_display_pecha.layer_path.rglob("*.json"))
+        layer_path = next(commentary_display_pecha.layer_path.rglob("*.json"))
 
-    #     anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
+        anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
 
-    #     segments = []
-    #     for src_idx, tgt_map in translation_map.items():
-    #         translation_text = anns[src_idx]["text"]
-    #         tgt_idx = tgt_map[0][0]
+        segments = []
+        for idx, ann in anns.items():
+            commentary_text = ann["text"]
+            root_idx = commentary_map[idx][0][0]
+            root_display_idx = root_map[root_idx][0][0]
+            segments.append(f"<1><{root_display_idx}>{commentary_text}")
 
-    #         root_idx = root_map[tgt_idx][0][0]
-    #         segments.append(f"<1><{root_idx}>{translation_text}")
-    #     return segments
+        return segments
 
     def extract_commentary_anns(self, layer: AnnotationStore) -> List[Dict]:
         """

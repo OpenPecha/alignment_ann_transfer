@@ -40,7 +40,15 @@ class TestCommentaryAlignmentTransfer(TestCase):
         expected_serialized_json = read_json(DATA_DIR / "serialized_commentary.json")
         assert serialized_json == expected_serialized_json
 
-
-work = TestCommentaryAlignmentTransfer()
-work.setUp()
-work.test_get_commentary_pechas_mapping()
+    def test_get_serialized_commentary_display(self):
+        commentary_transfer = CommentaryAlignmentTransfer()
+        serialized_json = commentary_transfer.get_serialized_commentary_display(
+            self.root_pecha,
+            self.root_display_pecha,
+            self.commentary_pecha,
+            self.commentary_display_pecha,
+        )
+        expected_serialized_json = read_json(
+            DATA_DIR / "serialized_commentary_display.json"
+        )
+        assert serialized_json == expected_serialized_json
