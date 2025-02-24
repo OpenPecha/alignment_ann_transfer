@@ -52,6 +52,35 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             segments.append(f"<1><{display_idx}>{commentary_text}")
         return segments
 
+    def get_aligned_display_commentary(
+        self, root_pecha: Pecha, root_display_pecha: Pecha, commentary_pecha: Pecha
+    ) -> List[Dict]:
+        mapping = self.get_root_pechas_mapping(root_display_pecha, root_pecha)
+
+        layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
+        commentary_anns = self.extract_commentary_anns(
+            AnnotationStore(file=str(layer_path))
+        )
+
+        root_layer_path = next(root_display_pecha.layer_path.rglob("*.json"))
+        root_anns = self.extract_anns(AnnotationStore(file=str(root_layer_path)))
+        aligned_segments = []
+
+        for root_idx, map in mapping.items():
+            root_display_text = root_anns[root_idx]["text"]
+            if not map:
+                commentary_texts = None
+            else:
+                commentary_texts = [commentary_anns[m[0]]["text"] for m in map]
+
+            aligned_segments.append(
+                {
+                    "root_display_text": root_display_text,
+                    "commentary_text": commentary_texts,
+                }
+            )
+        return aligned_segments
+
     def get_serialized_commentary_display(
         self,
         root_pecha: Pecha,
