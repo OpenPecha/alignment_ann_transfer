@@ -46,6 +46,8 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             root_indices = parse_root_mapping(ann["root_idx_mapping"])
             first_idx = root_indices[0]
             commentary_text = ann["text"]
+            if not map.get(first_idx):
+                continue
             display_idx = map[first_idx][0][0]
             segments.append(f"<1><{display_idx}>{commentary_text}")
         return segments
