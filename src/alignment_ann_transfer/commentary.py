@@ -71,7 +71,7 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             if not map:
                 commentary_texts = None
             else:
-                commentary_texts = [commentary_anns[m[0]]["text"] for m in map]
+                commentary_texts = [commentary_anns[m[0] - 1]["text"] for m in map]
 
             aligned_segments.append(
                 {
