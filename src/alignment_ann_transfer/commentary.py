@@ -80,6 +80,8 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
                 commentary_texts = []
                 for m in map:
                     if root_anns[m[0]]["text"].strip():
+                        if m[0] - 1 >= len(commentary_anns):
+                            continue
                         commentary_texts.append(commentary_anns[m[0] - 1]["text"])
 
             aligned_segments.append(
