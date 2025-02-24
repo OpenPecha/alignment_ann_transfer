@@ -62,16 +62,25 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             AnnotationStore(file=str(layer_path))
         )
 
-        root_layer_path = next(root_display_pecha.layer_path.rglob("*.json"))
+        root_display_layer_path = next(root_display_pecha.layer_path.rglob("*.json"))
+        root_display_anns = self.extract_anns(
+            AnnotationStore(file=str(root_display_layer_path))
+        )
+
+        root_layer_path = next(root_pecha.layer_path.rglob("*.json"))
         root_anns = self.extract_anns(AnnotationStore(file=str(root_layer_path)))
+
         aligned_segments = []
 
         for root_idx, map in mapping.items():
-            root_display_text = root_anns[root_idx]["text"]
+            root_display_text = root_display_anns[root_idx]["text"]
             if not map:
                 commentary_texts = None
             else:
-                commentary_texts = [commentary_anns[m[0] - 1]["text"] for m in map]
+                commentary_texts = []
+                for m in map:
+                    if root_anns[m[0]]["text"].strip():
+                        commentary_texts.append(commentary_anns[m[0] - 1]["text"])
 
             aligned_segments.append(
                 {
