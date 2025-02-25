@@ -36,7 +36,17 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
         Structure in a way such as : <chapter number><display idx>commentary text
         Note: From many relation in display layer, take first idx (Sefaria map limitation)
         """
+
+        def is_empty(text):
+            """Check if text is empty or contains only newlines."""
+            return not text.strip().replace("\n", "")
+
         map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
+
+        root_display_layer_path = next(root_display_pecha.layer_path.rglob("*.json"))
+        root_display_anns = self.extract_anns(
+            AnnotationStore(file=str(root_display_layer_path))
+        )
 
         root_layer_path = next(root_pecha.layer_path.rglob("*.json"))
         root_anns = self.extract_anns(AnnotationStore(file=str(root_layer_path)))
@@ -53,19 +63,25 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             commentary_text = ann["text"]
 
             # If the commentary text is empty, skip
-            if not commentary_text.strip().replace("\n", ""):
+            if is_empty(commentary_text):
                 continue
 
             # If aligned root does not have text, dont add any mapping
             if not map.get(first_idx):
                 curr_segment = commentary_text
 
-            # If the root display text is empty, dont add any mapping
-            elif not root_anns[first_idx]["text"].strip():
+            # If the root text is empty, dont add any mapping
+            elif is_empty(root_anns[first_idx]["text"]):
                 curr_segment = commentary_text
             else:
                 display_idx = map[first_idx][0][0]
-                curr_segment = f"<1><{display_idx}>{commentary_text}"
+                if display_idx in root_display_anns and not is_empty(
+                    root_display_anns[display_idx]["text"]
+                ):
+                    curr_segment = f"<1><{display_idx}>{commentary_text}"
+                # If root display is empty, dont add any mapping
+                else:
+                    curr_segment = commentary_text
             segments.append(curr_segment)
         return segments
 
