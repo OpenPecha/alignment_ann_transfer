@@ -62,12 +62,12 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             first_idx = root_indices[0]
             commentary_text = ann["text"]
 
-            # If the commentary text is empty, skip
+            # # If the commentary text is empty, skip
             if is_empty(commentary_text):
-                continue
+                curr_segment = commentary_text
 
             # If aligned root does not have text, dont add any mapping
-            if not map.get(first_idx):
+            elif not map.get(first_idx):
                 curr_segment = commentary_text
 
             # If the root text is empty, dont add any mapping
