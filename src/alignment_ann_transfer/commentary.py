@@ -37,21 +37,32 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
         Note: From many relation in display layer, take first idx (Sefaria map limitation)
         """
         map = self.get_root_pechas_mapping(root_pecha, root_display_pecha)
-        layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
 
-        anns = self.extract_commentary_anns(AnnotationStore(file=str(layer_path)))
+        root_layer_path = next(root_pecha.layer_path.rglob("*.json"))
+        root_anns = self.extract_anns(AnnotationStore(file=str(root_layer_path)))
+
+        commentary_layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
+        commentary_anns = self.extract_commentary_anns(
+            AnnotationStore(file=str(commentary_layer_path))
+        )
 
         segments = []
-        for ann in anns:
+        for ann in commentary_anns:
             root_indices = parse_root_mapping(ann["root_idx_mapping"])
             first_idx = root_indices[0]
             commentary_text = ann["text"]
 
-            if not commentary_text.strip():
+            # If the commentary text is empty, skip
+            if not commentary_text.strip().replace("\n", ""):
                 continue
 
+            # If aligned root does not have text, dont add any mapping
             if not map.get(first_idx):
-                curr_segment = f"{commentary_text}"
+                curr_segment = commentary_text
+
+            # If the root display text is empty, dont add any mapping
+            elif not root_anns[first_idx]["text"].strip():
+                curr_segment = commentary_text
             else:
                 display_idx = map[first_idx][0][0]
                 curr_segment = f"<1><{display_idx}>{commentary_text}"
