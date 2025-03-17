@@ -125,6 +125,13 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
                     for ann in commentary_anns:
                         root_indices = parse_root_mapping(ann["root_idx_mapping"])
                         if root_idx in root_indices:
+                            commentary_text = ann["text"]
+                            if not commentary_text.strip():
+                                continue
+
+                            if commentary_text in commentary_texts:
+                                continue
+
                             commentary_texts.append(ann["text"])
 
             aligned_segments.append(
@@ -178,8 +185,8 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             anns.append(
                 {
                     "Span": {"start": start, "end": end},
-                    "text": str(ann),
                     "root_idx_mapping": ann_metadata["root_idx_mapping"],
+                    "text": str(ann),
                 }
             )
         return anns
