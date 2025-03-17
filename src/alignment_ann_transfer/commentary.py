@@ -88,7 +88,7 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
     def get_aligned_display_commentary(
         self, root_pecha: Pecha, root_display_pecha: Pecha, commentary_pecha: Pecha
     ) -> List[Dict]:
-        mapping = self.get_root_pechas_mapping(root_display_pecha, root_pecha)
+        root_map = self.get_root_pechas_mapping(root_display_pecha, root_pecha)
 
         layer_path = next(commentary_pecha.layer_path.rglob("*.json"))
         commentary_anns = self.extract_commentary_anns(
@@ -105,17 +105,34 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
 
         aligned_segments = []
 
-        for root_idx, map in mapping.items():
-            root_display_text = root_display_anns[root_idx]["text"]
+        for root_display_idx, map in root_map.items():
+            root_display_text = root_display_anns[root_display_idx]["text"]
             if not map:
+                commentary_texts = None
+
+            elif not root_display_text.strip():
                 commentary_texts = None
             else:
                 commentary_texts = []
                 for m in map:
-                    if root_anns[m[0]]["text"].strip():
-                        if m[0] - 1 >= len(commentary_anns):
-                            continue
-                        commentary_texts.append(commentary_anns[m[0] - 1]["text"])
+                    root_idx = m[0]
+                    if not root_anns[root_idx]["text"].strip():
+                        continue
+
+                    if root_idx - 1 >= len(commentary_anns):
+                        continue
+
+                    for ann in commentary_anns:
+                        root_indices = parse_root_mapping(ann["root_idx_mapping"])
+                        if root_idx in root_indices:
+                            commentary_text = ann["text"]
+                            if not commentary_text.strip():
+                                continue
+
+                            if commentary_text in commentary_texts:
+                                continue
+
+                            commentary_texts.append(ann["text"])
 
             aligned_segments.append(
                 {
@@ -168,8 +185,8 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
             anns.append(
                 {
                     "Span": {"start": start, "end": end},
-                    "text": str(ann),
                     "root_idx_mapping": ann_metadata["root_idx_mapping"],
+                    "text": str(ann),
                 }
             )
         return anns

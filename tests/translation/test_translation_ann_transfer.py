@@ -52,3 +52,16 @@ class TestTranslationAlignmentTransfer(TestCase):
             DATA_DIR / "serialized_translation_display.json"
         )
         assert serialized_json == expected_serialized_json
+
+    def test_get_aligned_translation(self):
+        translation_transfer = TranslationAlignmentTransfer()
+        aligned_translation = translation_transfer.get_aligned_translation(
+            self.root_pecha, self.root_display_pecha, self.translation_pecha
+        )
+        expected_aligned_translation = read_json(DATA_DIR / "aligned_translation.json")
+        assert aligned_translation == expected_aligned_translation
+
+
+work = TestTranslationAlignmentTransfer()
+work.setUp()
+work.test_get_aligned_translation()
