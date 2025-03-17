@@ -122,7 +122,10 @@ class CommentaryAlignmentTransfer(AlignmentTransfer):
                     if root_idx - 1 >= len(commentary_anns):
                         continue
 
-                    commentary_texts.append(commentary_anns[root_idx - 1]["text"])
+                    for ann in commentary_anns:
+                        root_indices = parse_root_mapping(ann["root_idx_mapping"])
+                        if root_idx in root_indices:
+                            commentary_texts.append(ann["text"])
 
             aligned_segments.append(
                 {

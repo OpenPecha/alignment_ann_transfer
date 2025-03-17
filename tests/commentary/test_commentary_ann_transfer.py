@@ -55,9 +55,11 @@ class TestCommentaryAlignmentTransfer(TestCase):
 
     def test_get_aligned_display_commentary(self):
         commentary_transfer = CommentaryAlignmentTransfer()
-        commentary_transfer.get_aligned_display_commentary(  # noqa
+        aligned_commentary = commentary_transfer.get_aligned_display_commentary(  # noqa
             self.root_pecha, self.root_display_pecha, self.commentary_pecha
         )
+        expected_aligned_commentary = read_json(DATA_DIR / "aligned_commentary.json")
+        assert aligned_commentary == expected_aligned_commentary
 
 
 work = TestCommentaryAlignmentTransfer()
