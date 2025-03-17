@@ -76,3 +76,50 @@ class TranslationAlignmentTransfer(AlignmentTransfer):
             root_idx = root_map[tgt_idx][0][0]
             segments.append(f"<1><{root_idx}>{translation_text}")
         return segments
+
+    def get_aligned_translation(
+        self, root_pecha: Pecha, root_display_pecha: Pecha, translation_pecha: Pecha
+    ) -> List[Dict]:
+        root_map = self.get_root_pechas_mapping(root_display_pecha, root_pecha)
+
+        layer_path = next(translation_pecha.layer_path.rglob("*.json"))
+        translation_anns = self.extract_anns(AnnotationStore(file=str(layer_path)))
+
+        root_display_layer_path = next(root_display_pecha.layer_path.rglob("*.json"))
+        root_display_anns = self.extract_anns(
+            AnnotationStore(file=str(root_display_layer_path))
+        )
+
+        root_layer_path = next(root_pecha.layer_path.rglob("*.json"))
+        root_anns = self.extract_anns(AnnotationStore(file=str(root_layer_path)))
+
+        aligned_segments = []
+
+        for root_display_idx, map in root_map.items():
+            root_display_text = root_display_anns[root_display_idx]["text"]
+            if not map:
+                translation_texts = None
+
+            elif not root_display_text.strip():
+                translation_texts = None
+            else:
+                translation_texts = []
+                for m in map:
+                    root_idx = m[0]
+                    if not root_anns[root_idx]["text"].strip():
+                        continue
+
+                    # Check if the root_idx is in the translation_anns
+                    if root_idx not in translation_anns:
+                        continue
+
+                    translation_text = translation_anns[root_idx]["text"]
+                    translation_texts.append(translation_text)
+
+            aligned_segments.append(
+                {
+                    "root_display_text": root_display_text,
+                    "translation_text": translation_texts,
+                }
+            )
+        return aligned_segments
