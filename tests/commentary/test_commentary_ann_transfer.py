@@ -52,3 +52,14 @@ class TestCommentaryAlignmentTransfer(TestCase):
             DATA_DIR / "serialized_commentary_display.json"
         )
         assert serialized_json == expected_serialized_json
+
+    def test_get_aligned_display_commentary(self):
+        commentary_transfer = CommentaryAlignmentTransfer()
+        commentary_transfer.get_aligned_display_commentary(  # noqa
+            self.root_pecha, self.root_display_pecha, self.commentary_pecha
+        )
+
+
+work = TestCommentaryAlignmentTransfer()
+work.setUp()
+work.test_get_aligned_display_commentary()
